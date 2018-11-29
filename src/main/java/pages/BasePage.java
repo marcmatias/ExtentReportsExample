@@ -9,9 +9,8 @@ public class BasePage {
     public WebDriverWait wait;
 
     //Constructor
-    public BasePage (WebDriver driver, WebDriverWait wait){
+    public BasePage (WebDriver driver){
         this.driver = driver;
-        this.wait = wait;
     }
 
     //Click Method

@@ -7,70 +7,71 @@ import pages.LoginPage;
 import utils.ExtentReports.ExtentTestManager;
 
 public class LoginTests extends BaseTest {
+	
+    @Test (priority = 2, description="Cenário de login inválido com username e password errados.")
+    public void verifyLink () throws InterruptedException {
 
-    // Extra information:
-    // 1) @BeforeClass we declared driver and wait variables
-    // 2) We send these driver and wait variables to the page class with below declaration
-    //    Homepage homepage = new HomePage(driver,wait);
-    // 3) super () method in page class transfer the driver and wait variables values to the BasePage class.
+    	//ExtentReports Description
+        ExtentTestManager.getTest().setDescription("Testa se o link que leva a tela de login esta funcional.");
 
-    @Test (priority = 0, description="Cen�rio de login inv�lido com username e password errados.")
+    	//*************PAGE INSTANTIATIONS*************
+        HomePage homePage = new HomePage(driver);
+        LoginPage loginPage = new LoginPage(driver);
+       
+        //*************PAGE METHODS********************
+        homePage.goToHomePage();
+        homePage.goToLoginPage();
+
+        //Verify login
+        Thread.sleep(2000);
+        loginPage.verifyURLPage("http://marcmatias.pythonanywhere.com/login/");
+    }
+    
+	@Test (priority = 0, description="Cenário de login inválido com username e password errados.")
     public void invalidLoginTest_InvalidUserNameInvalidPassword () throws InterruptedException {
-        //ExtentReports Description
-        ExtentTestManager.getTest().setDescription("Test if message: 'Incorrect login credentials. Please try again', is printed.");
 
-        //*************PAGE INSTANTIATIONS*************
-        HomePage homePage = new HomePage(driver,wait);
-        LoginPage loginPage = new LoginPage(driver,wait);
+    	//ExtentReports Description
+        ExtentTestManager.getTest().setDescription("Testa se mensagem de erro de login e exibida.");
 
+    	//*************PAGE INSTANTIATIONS*************
+        HomePage homePage = new HomePage(driver);
+        LoginPage loginPage = new LoginPage(driver);
+       
         //*************PAGE METHODS********************
-//        Open N11 LoginPage
-        homePage.goToN11();
+        homePage.goToHomePage();
+        homePage.goToLoginPage();
 
 
-        //Login to N11
-        loginPage.loginToN11("asffadm@protonmail.com", "X123456");
+        //Login
+        loginPage.login("Test", "X123456");
 
         //*************ASSERTIONS***********************
         Thread.sleep(2000);
-        loginPage.verifyLoginPassword(("Incorrect login credentials. Please try again"));
+        loginPage.verifyLoginPassword(("or favor, entre com um usuário e senha corretos. Note que ambos os campos diferenciam maiúsculas e minúsculas."));
     }
 
-    @Test (priority = 1, description="Cen�rio de login inv�lido com username e password em branco.")
-    public void invalidLoginTest_EmptyUserEmptyPassword () throws InterruptedException {
-        //ExtentReports Description
-        ExtentTestManager.getTest().setDescription("Test if message: 'Please enter your username and password.' is printed.");
-
-        //*************PAGE INSTANTIATIONS*************
-        HomePage homePage = new HomePage(driver,wait);
-        LoginPage loginPage = new LoginPage(driver,wait);
-
-        //*************PAGE METHODS********************
-        homePage.goToN11();
-        loginPage.loginToN11("","");
-
-        //*************ASSERTIONS***********************
-        Thread.sleep(2000);
-        loginPage.verifyLoginUserName("Please enter your username and password");
-        loginPage.verifyLoginPassword("Please enter your username and password");
-    }
-
-    @Test (priority = 2, description="Cen�rio de login V�lido com username e password corretos.")
+    @Test (priority = 1, description="Cenário de login Válido com username e password corretos.")
     public void validLoginTest_ValidUserNameValidPassword () throws InterruptedException {
+ 
+    	//ExtentReports Description
+        ExtentTestManager.getTest().setDescription("Testa se login esta sendo efetuado corretamente.");
 
-        //*************PAGE INSTANTIATIONS*************
-        HomePage homePage = new HomePage(driver,wait);
-        LoginPage loginPage = new LoginPage(driver,wait);
-
-        //*************PAGE METHODS********************
-        homePage.goToN11();
-
-        //Login to N11
-        loginPage.loginToN11("x@protonmail.com", "12345");
+    	
+    	//*************PAGE INSTANTIATIONS*************
+        HomePage homePage = new HomePage(driver);
+        LoginPage loginPage = new LoginPage(driver);
         
-        //Verify logon page
+        //*************PAGE METHODS********************
+        homePage.goToHomePage();
+        homePage.goToLoginPage();
+
+        //Login
+        loginPage.login("admin", "Av123456");
         Thread.sleep(2000);
-        loginPage.verifyURLPage("https://mail.protonmail.com/inbox");
+        
+        //Verify login
+        Thread.sleep(2000);
+        loginPage.verifyURLPage("http://marcmatias.pythonanywhere.com/chart/");
 
     }
     

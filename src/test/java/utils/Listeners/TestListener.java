@@ -28,7 +28,6 @@ public class TestListener extends BaseTest implements ITestListener {
     public void onFinish(ITestContext iTestContext) {
         System.out.println("I am in onFinish method " + iTestContext.getName());
         //Do tier down operations for extentreports reporting!
-        ExtentTestManager.endTest();
         ExtentManager.getReporter().flush();
     }
 
@@ -44,12 +43,12 @@ public class TestListener extends BaseTest implements ITestListener {
         System.out.println("I am in onTestSuccess method " +  getTestMethodName(iTestResult) + " succeed");
         //Extentreports log operation for passed tests.
         ExtentTestManager.getTest().log(LogStatus.PASS, "Test passed");
+        ExtentTestManager.endTest();
     }
 
     @Override
     public void onTestFailure(ITestResult iTestResult) {
         System.out.println("I am in onTestFailure method " +  getTestMethodName(iTestResult) + " failed");
-
         //Get driver from BaseTest and assign to local webdriver variable.
         Object testClass = iTestResult.getInstance();
         WebDriver webDriver = ((BaseTest) testClass).getDriver();
@@ -61,12 +60,15 @@ public class TestListener extends BaseTest implements ITestListener {
         //Extentreports log and screenshot operations for failed tests.
         ExtentTestManager.getTest().log(LogStatus.FAIL,"Test Failed",
                 ExtentTestManager.getTest().addBase64ScreenShot(base64Screenshot));
+        ExtentTestManager.getTest().log(LogStatus.FAIL, iTestResult.getThrowable());
+        ExtentTestManager.endTest();
     }
 
     @Override
     public void onTestSkipped(ITestResult iTestResult) {
         System.out.println("I am in onTestSkipped method "+  getTestMethodName(iTestResult) + " skipped");
         //Extentreports log operation for skipped tests.
+        ExtentTestManager.endTest();
         ExtentTestManager.getTest().log(LogStatus.SKIP, "Test Skipped");
     }
 

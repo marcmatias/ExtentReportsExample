@@ -9,7 +9,6 @@
     <classes>
       <class name="tests.LoginTests">
         <methods>
-          <include name="validLoginTest_ValidUserNameValidPassword"/>
           <include name="teardown"/>
           <include name="invalidLoginTest_InvalidUserNameInvalidPassword"/>
           <include name="setup"/>

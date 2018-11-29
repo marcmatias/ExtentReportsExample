@@ -2,32 +2,31 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 public class LoginPage extends BasePage{
 
     //*********Constructor*********
-    public LoginPage(WebDriver driver, WebDriverWait wait) {
-        super(driver, wait);
+    public LoginPage(WebDriver driver) {
+        super(driver);
     }
 
     //*********Web Elements*********
-    String usenameId = "username";
-    String passwordId = "password";
+    String usenameId = "id_username";
+    String passwordId = "id_password";
     String loginButtonId = "login_btn";
-    String errorMessageUsernameXpath = "//div[@class='proton-notification-template cg-notify-message notification-danger cg-notify-message-center']";
-    String errorMessagePasswordXpath = "//div[@class='proton-notification-template cg-notify-message notification-danger cg-notify-message-center']";
+    String errorMessageUsernameXpath = "/html/body/div/div/div[2]/form/div[1]";
+    String errorMessagePasswordXpath = "/html/body/div/div/div[2]/form/div[1]";
     
     //*********Page Methods*********
 
-    public void loginToN11 (String username, String password){
+    public void login (String username, String password){
         //Enter Username(Email)
         writeText(By.id(usenameId),username);
         //Enter Password
         writeText(By.id(passwordId), password);
         //Click Login Button
-        click(By.id(loginButtonId));
+        click(By.xpath("/html/body/div/div/div[2]/form/button"));
     }
 
     //Verify Username Condition

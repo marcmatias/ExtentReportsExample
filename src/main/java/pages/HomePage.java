@@ -2,18 +2,17 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class HomePage extends BasePage {
 
     //*********Constructor*********
-    public HomePage (WebDriver driver, WebDriverWait wait) {
-        super(driver, wait);
+    public HomePage (WebDriver driver) {
+        super(driver);
     }
 
     //*********Page Variables*********
-    //String baseURL = "http://www.n11.com/";
-    String baseURL = "https://mail.protonmail.com/login";
+    String baseURL = "http://marcmatias.pythonanywhere.com/";
+    //String baseURL = "http://marcmatias.pythonanywhere.com/login/";
 
     //*********Web Elements*********
     //String signInButtonClass = "btnSignIn";
@@ -23,14 +22,14 @@ public class HomePage extends BasePage {
     //*********Page Methods*********
 
     //Go to Homepage
-    public void goToN11 (){
+    public void goToHomePage (){
         driver.get(baseURL);
-        //driver.navigate().to(baseURL)
+        driver.navigate().to(baseURL);
     }
 
     //Go to LoginPage
-//    public void goToLoginPage (){
-//        click(By.className(signInButtonClass));
-//    }
+    public void goToLoginPage (){
+        click(By.xpath("//*[@id=\"navbarResponsive\"]/ul/li[7]/a"));
+    }
 
 }
